@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mijn Qur'an-tuin</title>
+<style>
+:root{--ink:#26352b;--muted:#6d786f;--cream:#fffaf0;--paper:#fffdf8;--green:#63866a;--green2:#dfead8;--leaf:#9fbd87;--terracotta:#c97854;--yellow:#f6d56b;--purple:#a78bc3;--blue:#86b9d6;--pink:#e8a7b5;--line:#e5e5d8}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f9f5e9,#eef5e9);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}button{font:inherit}
+.app{max-width:760px;margin:auto;min-height:100vh;background:rgba(255,253,248,.92);box-shadow:0 0 40px #80917c22;padding-bottom:88px}
+header{position:sticky;top:0;z-index:20;background:#fffdf8ee;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 14px}
+.brand{display:flex;justify-content:space-between;align-items:center;gap:10px}.brand b{font-family:Georgia,serif;font-size:20px}.tiny{font-size:12px;color:var(--muted)}
+.gardenbar{margin-top:8px;display:flex;align-items:center;gap:8px}.pot{width:55px;height:46px;position:relative;cursor:pointer}.potbase{position:absolute;bottom:0;left:8px;width:40px;height:27px;background:var(--terracotta);clip-path:polygon(8% 0,92% 0,80% 100%,20% 100%);border-radius:3px}.plant{position:absolute;left:26px;bottom:21px;transform-origin:bottom;transition:.5s}.plant span{position:absolute;display:none}.plant .stem{display:block;width:4px;height:0;background:#6e966b;bottom:0;transition:.6s}.plant .l1{left:-13px;bottom:12px}.plant .l2{left:2px;bottom:24px}.plant .flower{left:-12px;bottom:38px;font-size:25px}.stage1 .stem{height:15px}.stage2 .stem{height:31px}.stage2 .l1,.stage3 .l1,.stage3 .l2{display:block}.stage3 .stem{height:44px}.stage4 .stem{height:48px}.stage4 .l1,.stage4 .l2,.stage4 .flower{display:block}
+.progress{flex:1;height:10px;background:#edf0e9;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--leaf),#6f9d6e);width:0;transition:.5s}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);z-index:30;background:#fffdf8f5;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:7px 3px calc(7px + env(safe-area-inset-bottom))}
+nav button{border:0;background:none;color:#687268;font-size:11px;padding:5px 7px}nav button b{display:block;font-size:20px}nav .on{color:#45694d;font-weight:800}
+.page{display:none;padding:16px}.page.on{display:block}.hero{text-align:center;padding:24px 8px}.hero h1{font:700 34px Georgia,serif;margin:8px}.hero p{max-width:560px;margin:8px auto;color:#58665c}
+.card{background:white;border:1px solid var(--line);border-radius:22px;padding:17px;margin:13px 0;box-shadow:0 8px 22px #5d6c5a0d}.card h2,.card h3{font-family:Georgia,serif;margin:0 0 10px}.en{font-size:12px;color:#7b827d;margin-top:5px}.note{border-left:3px solid #9daf9c;padding-left:10px;font-size:12px;color:#6c756f;margin-top:12px}
+.btn{border:0;border-radius:99px;padding:11px 15px;background:#587b60;color:white;font-weight:800;cursor:pointer}.btn.alt{background:#efe7d4;color:#4b554d}.btn.purple{background:#8c70aa}.btn.blue{background:#679fbe}.btn.pink{background:#cf8395}.btn.yellow{background:#e4b73d;color:#40371f}
+.intro{min-height:78vh;display:grid;place-items:center;text-align:center}.scene{width:310px;height:320px;position:relative;margin:auto;background:radial-gradient(circle at 50% 15%,#fff8cf,#edf5e5 60%);border-radius:45% 45% 20px 20px;overflow:hidden;border:1px solid #e6e0cb}.sun{position:absolute;right:30px;top:28px;font-size:42px}.soil{position:absolute;bottom:0;width:100%;height:85px;background:#9b7657}.bigpot{position:absolute;bottom:45px;left:100px;width:110px;height:80px;background:var(--terracotta);clip-path:polygon(5% 0,95% 0,82% 100%,18% 100%);border-radius:8px}.seed{position:absolute;left:145px;top:85px;font-size:25px;transition:1s}.introplant{position:absolute;left:153px;bottom:115px;font-size:55px;transform:scale(0);transform-origin:bottom;transition:1s}.water{position:absolute;left:180px;top:115px;font-size:34px;opacity:0;transition:.5s}.introStep{min-height:58px;font-weight:800;margin-top:12px}
+.sectionhead{padding:17px;border-radius:22px;margin:12px 0;color:#26352b}.discover{background:#f8e9bd}.sounds{background:#e8ddf3}.memorize{background:#dcecf5}.play{background:#f6dce4}.live{background:#dfeeda}
+.ayah{background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px;margin:10px 0}.arabic{font-family:"Geeza Pro","Noto Naskh Arabic",serif;font-size:28px;line-height:1.9;text-align:right;direction:rtl}.trans{font-size:14px;color:#6b6e69;font-style:italic}.meaning{font-weight:700;margin-top:7px}
+.visualgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.vcard{min-height:150px;border-radius:20px;padding:14px;display:flex;flex-direction:column;justify-content:center;text-align:center;border:2px solid #ffffff99}.vcard .icon{font-size:40px}.v1{background:#f9e5a6}.v2{background:#dfeeda}.v3{background:#e4e1f4}.v4{background:#dcecf5}.vcard b{margin-top:6px}
+.soundcard{border-radius:22px;padding:15px;margin:12px 0;background:#faf8ff;border:1px solid #e1d9ea}.letter{font:700 54px Georgia,serif;text-align:center;color:#71558e}.mouth{height:115px;position:relative;margin:8px auto;max-width:300px;background:#fff;border-radius:70px 70px 45px 45px;border:2px solid #eadff1}.mouth .face{font-size:55px;position:absolute;left:20px;top:25px}.mouth .zone{position:absolute;border-radius:50%;width:48px;height:30px;background:#d88f9e88;box-shadow:0 0 0 8px #d88f9e22}.zback{right:46px;top:54px}.zthroat{right:20px;top:60px}.zteeth{right:85px;top:37px}.wordchips{display:flex;gap:7px;justify-content:center;flex-wrap:wrap}.chip{background:#fff;border:2px solid #d9c9e6;border-radius:99px;padding:7px 12px;font-size:22px;direction:rtl}
+.chunk{padding:12px;border-radius:16px;background:#eef6fa;margin:7px 0;text-align:center}.chunk .arabic{text-align:center}
+.game{border-radius:24px;padding:16px;margin:12px 0;position:relative;overflow:hidden}.g-yellow{background:#fff0b9}.g-purple{background:#e9def4}.g-blue{background:#dceffa}.g-pink{background:#f9dce4}.timer{font-weight:900;font-size:24px;float:right;background:#fff9;border-radius:99px;padding:5px 10px}.choices{display:grid;gap:8px;margin-top:10px}.choice{border:2px solid #ffffffcc;background:#fff;border-radius:15px;padding:12px;text-align:left;cursor:pointer}.choice.good{background:#dff1d8;border-color:#76a66f}.choice.bad{background:#f7d6d6;border-color:#d78686}.feedback{font-weight:800;min-height:24px;margin-top:7px}.symbolchoice{font-size:35px;text-align:center}
+.missions .mission{display:flex;gap:11px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:17px;padding:12px;margin:8px 0;cursor:pointer}.mission input{width:23px;height:23px;accent-color:#67936e}.mission.done{background:#edf6e8}.milestone{text-align:center;background:#f7edd0;border-radius:20px;padding:15px;margin:12px 0}.reviewdays{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.reviewdays button{border:1px solid var(--line);background:white;border-radius:99px;padding:7px 10px}.reviewdays .done{background:#dfeeda}
+@media(max-width:480px){.visualgrid{grid-template-columns:1fr 1fr}.vcard{min-height:135px;padding:10px}.arabic{font-size:25px}.scene{width:290px}.page{padding:13px}}
+</style></head>
+<body><div class="app">
+<header><div class="brand"><div><b>🌿 Mijn Qur'an-tuin</b><div class="tiny">Elke surah wordt een bloem.</div></div><button class="btn alt" onclick="showIntro()">▶ uitleg</button></div>
+<div class="gardenbar"><div class="pot" onclick="grow()" title="Laat je plant groeien"><div class="plant" id="plant"><i class="stem"></i><span class="l1">🍃</span><span class="l2">🍃</span><span class="flower">🌷</span></div><div class="potbase"></div></div><div class="progress"><i id="prog"></i></div><div class="tiny" id="stageText">Al-Ikhlas · Zaadje</div></div></header>
+
+<main>
+<section class="page on" id="welcome"><div class="intro"><div>
+<div class="scene"><div class="sun">☀️</div><div class="seed" id="seed">🌰</div><div class="water" id="water">💧💧</div><div class="introplant" id="introplant">🌷</div><div class="soil"></div><div class="bigpot"></div></div>
+<div class="introStep" id="introText">Elke surah begint als een klein zaadje.</div>
+<button class="btn" id="introBtn" onclick="introNext()">Plant mijn zaadje 🌰</button>
+<div class="en">Every surah begins as a small seed. Her actions will make her garden grow.</div>
+</div></div></section>
+
+<section class="page" id="garden"><div class="hero"><div style="font-size:55px">🌱🌿🌷</div><h1>Jouw Qur'an-tuin</h1><p>Begrijp, luister, leer, leef — en laat elke surah groeien.</p><div class="en">Understand, listen, learn, live — each surah becomes part of her garden.</div></div>
+<div class="card"><h3 id="gardenIkhlasTitle">🌰 Al-Ikhlas</h3><p>Wie is Allah? · Who is Allah?</p><div class="progress"><i id="ikhlasMini"></i></div><p class="tiny" id="ikhlasMiniText">Mijn zaadje is geplant.</p><button class="btn" onclick="go('ikhlas')">Ga verder →</button></div>
+<div class="card"><h3 id="gardenFatihaTitle">🌰 Al-Fatiha</h3><p>Mijn gesprek met Allah en mijn vraag om leiding.</p><div class="progress"><i id="fatihaMini"></i></div><p class="tiny" id="fatihaMiniText">Klaar om te beginnen.</p>
+<div id="fatihaGate"><div style="background:#f7edd0;border-radius:18px;padding:13px;margin:12px 0"><b>🌷 Eerst: geef Al-Ikhlas nog één keer water</b><p class="tiny">Doe samen een korte terugblik voordat je een nieuw zaadje plant.</p><button class="btn yellow" onclick="go('bridge')">Doe de tuin-check →</button></div></div>
+<div id="fatihaOpen" hidden><button class="btn blue" onclick="go('fatiha')">🌰 Plant het Al-Fatiha-zaadje →</button></div></div>
+<div class="card"><h3>🌼 Jouw tuin groeit mee</h3><p>Elke surah heeft haar eigen plant. Een oude bloem geef je later opnieuw water door haar te herhalen.</p><div class="en">Each surah keeps its own progress. Review is how an older flower gets watered.</div></div></section>
+
+<section class="page" id="ikhlas">
+<div class="hero"><div style="font-size:48px">🌷</div><h1>Surah Al-Ikhlas</h1><p>Een kleine surah met een heel grote boodschap: wie Allah is.</p><div class="en">A short surah with a very big message: who Allah is.</div></div>
+
+<div class="sectionhead discover"><h2>✨ 1. Ontdek · Wat leert deze surah mij?</h2><div class="en">Discover the meaning first. Use the pictures as memory anchors rather than reading long explanations.</div></div>
+<div class="card"><h3>Stel je voor…</h3><p>Op school vraagt iemand jou: <b>“Wie is Allah?”</b></p><p>Wat zou jij zeggen?</p><button class="btn yellow" onclick="reveal('answer')">Denk even na 💭</button><p id="answer" hidden><b>Allah heeft ons zelf geleerd hoe we die vraag kunnen beantwoorden — in Al-Ikhlas.</b></p><div class="note">Parent note: Let her answer freely first. The aim is curiosity, not testing.</div></div>
+
+<div class="visualgrid">
+<div class="vcard v1"><div class="icon">1️⃣</div><div class="arabic">أَحَدٌ</div><b>Allah is Eén.</b><span class="tiny">Niets deelt Zijn goddelijkheid.</span></div>
+<div class="vcard v2"><div class="icon">🤲</div><div class="arabic">ٱلصَّمَدُ</div><b>Iedereen heeft Allah nodig.</b><span class="tiny">Allah heeft niemand nodig.</span></div>
+<div class="vcard v3"><div class="icon">∞</div><div class="arabic">لَمْ يَلِدْ وَلَمْ يُولَدْ</div><b>Allah is niet geboren en heeft geen kind.</b></div>
+<div class="vcard v4"><div class="icon">🌍 ✦ 🌿</div><div class="arabic">كُفُوًا أَحَدٌ</div><b>Niets en niemand is zoals Allah.</b></div>
+</div>
+
+<div class="card"><h3>De surah · The surah</h3>
+<div class="ayah"><div class="arabic">قُلْ هُوَ ٱللَّهُ أَحَدٌ</div><div class="trans">Qul huwa Allāhu aḥad</div><div class="meaning">Zeg: Hij is Allah, de Ene.</div><button class="btn blue" onclick="playAyah('112001')">▶ Luister</button></div>
+<div class="ayah"><div class="arabic">ٱللَّهُ ٱلصَّمَدُ</div><div class="trans">Allāhuṣ-ṣamad</div><div class="meaning">Allah is Degene die iedereen nodig heeft; Hij heeft niemand nodig.</div><button class="btn blue" onclick="playAyah('112002')">▶ Luister</button></div>
+<div class="ayah"><div class="arabic">لَمْ يَلِدْ وَلَمْ يُولَدْ</div><div class="trans">Lam yalid wa lam yūlad</div><div class="meaning">Hij heeft geen kind en Hij is niet geboren.</div><button class="btn blue" onclick="playAyah('112003')">▶ Luister</button></div>
+<div class="ayah"><div class="arabic">وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌ</div><div class="trans">Wa lam yakun lahu kufuwan aḥad</div><div class="meaning">En niets en niemand is aan Hem gelijk.</div><button class="btn blue" onclick="playAyah('112004')">▶ Luister</button></div>
+<button class="btn" onclick="completeStage(1)">Ik begrijp de boodschap 🌱</button>
+</div>
+
+<div class="sectionhead sounds"><h2>👂 2. Luister & spreek · Mijn 3 klanken</h2><div class="en">Focus on three sounds only. Accuracy grows over time; do not turn this into a long tajwid lesson.</div></div>
+<div class="soundcard"><div class="letter">ق</div><h3>Qāf</h3><div class="mouth"><span class="face">👄</span><span class="zone zback"></span></div><p><b>Waar?</b> Helemaal achteraan met de achterkant van je tong.</p><div class="en">Back of the tongue meets the soft palate area. Keep it distinct from ك.</div><div class="wordchips"><span class="chip"><b style="color:#8c70aa">قُ</b>لْ</span></div><button class="btn purple" onclick="playAyah('112001')">▶ Hoor ق in قُلْ</button></div>
+<div class="soundcard"><div class="letter">ح</div><h3>Ḥā'</h3><div class="mouth"><span class="face">👄</span><span class="zone zthroat"></span></div><p><b>Waar?</b> Vanuit het midden van je keel. Laat de lucht zacht naar buiten komen.</p><div class="en">A breathy pharyngeal sound from the middle throat; avoid turning it into ه.</div><div class="wordchips"><span class="chip">أَ<b style="color:#8c70aa">حَ</b>دٌ</span></div><button class="btn purple" onclick="playAyah('112001')">▶ Hoor ح in أَحَدٌ</button></div>
+<div class="soundcard"><div class="letter">ص</div><h3>Ṣād</h3><div class="mouth"><span class="face">👄</span><span class="zone zteeth"></span></div><p><b>Waar?</b> Je tong werkt dicht bij je tanden. Maak de klank voller en zwaarder dan س.</p><div class="en">A heavy/emphatic s-sound. Keep the tongue near the teeth while giving the sound its fuller quality.</div><div class="wordchips"><span class="chip">ٱل<b style="color:#8c70aa">صَّ</b>مَدُ</span></div><button class="btn purple" onclick="playAyah('112002')">▶ Hoor ص in ٱلصَّمَدُ</button></div>
+<button class="btn purple" onclick="completeStage(2)">Ik heb mijn 3 klanken geoefend 🌿</button>
+
+<div class="sectionhead memorize"><h2>🌿 3. Leer uit je hoofd · Bouw de ayah</h2><div class="en">Audio-first chunking. She does not need to be able to read the Arabic to complete this section.</div></div>
+<div class="card"><h3>Luister → zeg na → bouw verder</h3>
+<div class="chunk"><b>Stap 1</b><div class="arabic">قُلْ</div><div class="trans">Qul</div></div>
+<div class="chunk"><b>Stap 2</b><div class="arabic">قُلْ هُوَ</div><div class="trans">Qul huwa</div></div>
+<div class="chunk"><b>Stap 3</b><div class="arabic">قُلْ هُوَ ٱللَّهُ</div><div class="trans">Qul huwa Allāhu</div></div>
+<div class="chunk"><b>Hele ayah</b><div class="arabic">قُلْ هُوَ ٱللَّهُ أَحَدٌ</div><div class="trans">Qul huwa Allāhu aḥad</div></div>
+<button class="btn blue" onclick="playAyah('112001')">▶ Luister naar de hele ayah</button>
+<p class="note">Parent note: Say each chunk together, then let her try alone. If she gets stuck, give only the first word rather than immediately reciting the whole line.</p>
+<button class="btn" onclick="completeStage(3)">Ik kan de surah steeds beter opzeggen 🌿</button></div>
+
+<div class="sectionhead play"><h2>🎮 4. Speel · Laat zien wat je weet!</h2><div class="en">Timers are used for recognition and recall, never to rush articulation.</div></div>
+<div class="game g-yellow"><span class="timer" id="t1">10</span><h3>⚡ 10-seconden uitdaging</h3><p>Welke afbeelding past bij: <b>Allah is Eén</b>?</p><button class="btn yellow" onclick="startTimer('t1',10)">Start!</button><div class="choices"><button class="choice symbolchoice" onclick="answer(this,true)">1️⃣</button><button class="choice symbolchoice" onclick="answer(this,false)">🤲</button><button class="choice symbolchoice" onclick="answer(this,false)">🌍</button></div><div class="feedback"></div></div>
+
+<div class="game g-purple"><span class="timer" id="t2">20</span><h3>🔎 Klankdetective</h3><p>Start de klok. Vind daarna <b>ق · ح · ص</b> in de surah en wijs ze aan.</p><button class="btn purple" onclick="startTimer('t2',20)">Start 20 sec.</button><div class="arabic" style="text-align:center;margin-top:10px">قُلْ هُوَ ٱللَّهُ أَحَدٌ<br>ٱللَّهُ ٱلصَّمَدُ<br>لَمْ يَلِدْ وَلَمْ يُولَدْ<br>وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌ</div><p class="tiny">Tip: ze komen voor in قُلْ · أَحَدٌ · ٱلصَّمَدُ</p></div>
+
+<div class="game g-blue"><h3>🎧 Luister & kies</h3><p>Luister. Welke herinneringsafbeelding hoort bij deze ayah?</p><button class="btn blue" onclick="playAyah('112002')">▶ Luister</button><div class="choices"><button class="choice symbolchoice" onclick="answer(this,false)">1️⃣</button><button class="choice symbolchoice" onclick="answer(this,true)">🤲</button><button class="choice symbolchoice" onclick="answer(this,false)">∞</button></div><div class="feedback"></div></div>
+
+<div class="game g-pink"><h3>🗣️ Maak de ayah af</h3><p>Ik begin: <b>قُلْ هُوَ...</b></p><p>Zeg jij de rest zonder te kijken?</p><button class="btn pink" onclick="reveal('finish')">Toon na mijn poging</button><div id="finish" hidden><div class="arabic">ٱللَّهُ أَحَدٌ</div><div class="trans">Allāhu aḥad</div></div></div>
+
+<div class="game g-yellow"><h3>🌎 Wat zou jij doen?</h3><div class="scenario">Iets op school voelt moeilijk en je bent zenuwachtig.</div><div class="choices"><button class="choice" onclick="answer(this,true)">🤲 Ik herinner me Aṣ-Ṣamad en vraag Allah om hulp.</button><button class="choice" onclick="answer(this,false)">🙈 Ik denk alleen aan Allah wanneer alles makkelijk gaat.</button></div><div class="feedback"></div></div>
+
+<div class="sectionhead live"><h2>🏡 5. Neem de surah mee · Mijn missies</h2><div class="en">These are retrieval opportunities across the week, not compulsory homework. Review them together next time.</div></div>
+<div class="missions card" id="missions">
+<label class="mission"><input type="checkbox" data-m="mom"><span>👩‍👧 <b>Ik legde het uit aan mama.</b><br><span class="tiny">Vertel in je eigen woorden wat Al-Ikhlas over Allah leert.</span></span></label>
+<label class="mission"><input type="checkbox" data-m="someone"><span>👵 <b>Ik leerde iemand anders iets.</b><br><span class="tiny">Vertel oma, papa of iemand anders één ding dat je hebt geleerd.</span></span></label>
+<label class="mission"><input type="checkbox" data-m="samad"><span>🤲 <b>Ik herinnerde me Aṣ-Ṣamad.</b><br><span class="tiny">Vraag Allah om hulp wanneer iets moeilijk voelt.</span></span></label>
+<label class="mission"><input type="checkbox" data-m="recite"><span>🌙 <b>Ik reciteerde Al-Ikhlas buiten de les.</b><br><span class="tiny">Bijvoorbeeld voor het slapen of tijdens salah.</span></span></label>
+<label class="mission"><input type="checkbox" data-m="sounds"><span>👂 <b>Ik oefende ق · ح · ص.</b><br><span class="tiny">Luister en probeer de drie klanken rustig na te zeggen.</span></span></label>
+<label class="mission"><input type="checkbox" data-m="creation"><span>🌿 <b>Ik zag iets moois in de schepping.</b><br><span class="tiny">Herinner jezelf: niets en niemand is zoals Allah.</span></span></label>
+<div class="milestone" id="missionCount">0 van 6 missies geprobeerd 🌰</div></div>
+
+<div class="card"><h3>💧 Geef je bloem later water</h3><p>Kom terug en kijk of je Al-Ikhlas nog kent.</p><div class="reviewdays"><button data-r="D1">D1</button><button data-r="D3">D3</button><button data-r="D7">D7</button><button data-r="D14">D14</button><button data-r="D30">D30</button></div><div class="en">Spaced review: tomorrow, 3 days, 1 week, 2 weeks, 1 month.</div></div>
+
+<div class="card"><h3>Voor mama · Parent note</h3><p class="en">Keep reinforcement casual. In the car: “What does Aṣ-Ṣamad remind us?” At bedtime: “Tell me one thing Al-Ikhlas taught you about Allah.” When she asks for help, gently connect it to turning to Allah. Praise effort and remembering; do not turn every moment into a test.</p></div>
+</section>
+
+
+
+<section class="page" id="bridge">
+<div class="hero"><div style="font-size:55px">💧🌷</div><h1>Geef Al-Ikhlas water</h1><p>Voor we een nieuw zaadje planten, kijken we even hoe sterk jouw Al-Ikhlas-bloem al is.</p><div class="en">A short retrieval check before moving on. Help only after giving her time to remember.</div></div>
+<div class="card"><h3>🌿 Onze tuin-check</h3>
+<label class="mission"><input type="checkbox" id="bridgeMeaning"><span>💭 <b>Ik kan in mijn eigen woorden vertellen wat Al-Ikhlas ons over Allah leert.</b></span></label>
+<label class="mission"><input type="checkbox" id="bridgeRecite"><span>🗣️ <b>Ik kan Al-Ikhlas opzeggen met weinig of geen hulp.</b></span></label>
+<label class="mission"><input type="checkbox" id="bridgeLife"><span>🤲 <b>Ik kan één voorbeeld geven van hoe ik deze surah in mijn leven kan gebruiken.</b></span></label>
+<div class="note">Parent note: This is not an exam. If one part is shaky, review it briefly and try again. The goal is retrieval and confidence before introducing the next surah.</div>
+</div>
+<div class="card" style="text-align:center"><div style="font-size:45px">🌷 → 🌰</div><h3>Is Al-Ikhlas klaar om te bloeien?</h3><p>Als jullie samen tevreden zijn met de terugblik, mag zij het volgende zaadje planten.</p><button class="btn" onclick="confirmBridge()">🌷 Ja, deze bloem is klaar!</button><p class="en">Confirm together after the review. This unlocks Al-Fatiha.</p></div>
+</section>
+<section class="page" id="fatiha">
+<div class="hero"><div style="font-size:48px">🧭🌿</div><h1>Surah Al-Fatiha</h1><p>Een surah die we elke dag lezen: we prijzen Allah, aanbidden Hem en vragen Hem om ons de juiste weg te wijzen.</p><div class="en">Al-Fatiha is a daily conversation of praise, worship, dependence and asking Allah for guidance.</div></div>
+
+<div class="sectionhead discover"><h2>✨ 1. Ontdek · Waar vraag jij om?</h2><div class="en">Start with the idea of needing guidance. Keep the discussion concrete before introducing the full meaning.</div></div>
+<div class="card"><h3>Stel je voor… 🛤️</h3><p>Je staat op een plek met verschillende wegen. Je weet niet welke weg de goede is.</p><p><b>Wie zou jij om hulp vragen als je de weg niet weet?</b></p><button class="btn yellow" onclick="reveal('fatAnswer')">Denk even na 💭</button><div id="fatAnswer" hidden><p><b>In Al-Fatiha vragen we Allah elke dag om ons naar de goede weg te leiden.</b></p></div><div class="note">Parent note: Ask for examples of “the right path” in her own life: telling the truth, being kind, praying, making a good choice.</div></div>
+
+<div class="visualgrid">
+<div class="vcard v1"><div class="icon">🌍🤲</div><b>Allah zorgt voor alle werelden.</b><span class="tiny">We prijzen en danken Hem.</span></div>
+<div class="vcard v2"><div class="icon">💗</div><b>Allah is vol barmhartigheid.</b></div>
+<div class="vcard v3"><div class="icon">🕌🤲</div><b>Wij aanbidden Allah en vragen Hem om hulp.</b></div>
+<div class="vcard v4"><div class="icon">🛤️✨</div><b>Wij vragen Allah om de rechte weg.</b></div>
+</div>
+
+<div class="card"><h3>De surah · Luister ayah voor ayah</h3>
+<div class="ayah"><div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><div class="trans">Bismillāhir-Raḥmānir-Raḥīm</div><div class="meaning">In de naam van Allah, de Meest Barmhartige, de Meest Genadevolle.</div><button class="btn blue" onclick="playAyah('001001')">▶ Luister</button></div>
+<div class="ayah"><div class="arabic">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</div><div class="trans">Al-ḥamdu lillāhi Rabbil-'ālamīn</div><div class="meaning">Alle lof en dank is voor Allah, Heer van alle werelden.</div><button class="btn blue" onclick="playAyah('001002')">▶ Luister</button></div>
+<div class="ayah"><div class="arabic">الرَّحْمَٰنِ الرَّحِيمِ</div><div class="trans">Ar-Raḥmānir-Raḥīm</div><div class="meaning">De Meest Barmhartige, de Meest Genadevolle.</div><button class="btn blue" onclick="playAyah('001003')">▶ Luister</button></div>
+<div class="ayah"><div class="arabic">مَالِكِ يَوْمِ الدِّينِ</div><div class="trans">Māliki yawmid-dīn</div><div class="meaning">Meester van de Dag van het Oordeel.</div><button class="btn blue" onclick="playAyah('001004')">▶ Luister</button></div>
+<div class="ayah"><div class="arabic">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ</div><div class="trans">Iyyāka na'budu wa iyyāka nasta'īn</div><div class="meaning">U alleen aanbidden wij en U alleen vragen wij om hulp.</div><button class="btn blue" onclick="playAyah('001005')">▶ Luister</button></div>
+<div class="ayah"><div class="arabic">اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ</div><div class="trans">Ihdinaṣ-ṣirāṭal-mustaqīm</div><div class="meaning">Leid ons naar het rechte pad.</div><button class="btn blue" onclick="playAyah('001006')">▶ Luister</button></div>
+<div class="ayah"><div class="arabic">صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ</div><div class="trans">Ṣirāṭal-ladhīna an'amta 'alayhim, ghayril-maghḍūbi 'alayhim wa laḍ-ḍāllīn</div><div class="meaning">Het pad van degenen die U hebt begunstigd, niet van degenen die van de weg zijn afgeweken.</div><button class="btn blue" onclick="playAyah('001007')">▶ Luister</button></div>
+<button class="btn" onclick="completeSurahStage('fatiha',1)">Ik begrijp de grote boodschap 🌱</button></div>
+
+<div class="sectionhead sounds"><h2>👂 2. Luister & spreek · Mijn klanken</h2><div class="en">For Al-Fatiha, revisit familiar sounds and add only a small amount of new articulation work. Meaning and recitation remain the priority.</div></div>
+<div class="soundcard"><div class="letter">ح</div><h3>Ḥā' · een oude vriend 🌿</h3><div class="mouth"><span class="face">👄</span><span class="zone zthroat"></span></div><p>Je kent deze klank al van Al-Ikhlas. Hoor je hem in <b>الْحَمْدُ</b> en <b>الرَّحْمَٰنِ</b>?</p><button class="btn purple" onclick="playAyah('001002')">▶ Luister</button></div>
+<div class="soundcard"><div class="letter">ع</div><h3>ʿAyn</h3><div class="mouth"><span class="face">👄</span><span class="zone zthroat"></span></div><p>Deze klank komt vanuit je keel. Luister eerst goed voordat je hem probeert.</p><div class="wordchips"><span class="chip">نَ<b style="color:#8c70aa">عْ</b>بُدُ</span><span class="chip">الْ<b style="color:#8c70aa">عَ</b>الَمِينَ</span></div><button class="btn purple" onclick="playAyah('001005')">▶ Hoor ع</button></div>
+<div class="soundcard"><div class="letter">ض</div><h3>Ḍād</h3><div class="mouth"><span class="face">👄</span><span class="zone zteeth"></span></div><p>Een volle, zware klank. Luister naar <b>الضَّالِّينَ</b> en zeg hem rustig na.</p><button class="btn purple" onclick="playAyah('001007')">▶ Hoor ض</button></div>
+<button class="btn purple" onclick="completeSurahStage('fatiha',2)">Ik heb geluisterd en geoefend 🌿</button>
+
+<div class="sectionhead memorize"><h2>🌿 3. Leer uit je hoofd · Klein stukje voor klein stukje</h2><div class="en">Use familiar oral chunks. She may look at Arabic and transliteration, but reading Arabic is not required yet.</div></div>
+<div class="card"><h3>Bouw ayah 5</h3>
+<div class="chunk"><div class="arabic">إِيَّاكَ نَعْبُدُ</div><div class="trans">Iyyāka na'budu</div></div>
+<div class="chunk"><div class="arabic">وَإِيَّاكَ نَسْتَعِينُ</div><div class="trans">wa iyyāka nasta'īn</div></div>
+<div class="chunk"><b>Samen</b><div class="arabic">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ</div><div class="trans">Iyyāka na'budu wa iyyāka nasta'īn</div></div>
+<button class="btn blue" onclick="playAyah('001005')">▶ Luister en zeg na</button>
+<div class="note">Parent note: Al-Fatiha is longer. Work on one or two ayat/chunks at a time rather than expecting the whole surah in one sitting.</div>
+<button class="btn" onclick="completeSurahStage('fatiha',3)">Mijn Al-Fatiha groeit 🌿</button></div>
+
+<div class="sectionhead play"><h2>🎮 4. Speel · Al-Fatiha challenge</h2><div class="en">Use visuals and listening so she can demonstrate understanding without needing to decode Arabic.</div></div>
+<div class="game g-yellow"><span class="timer" id="ft1">10</span><h3>⚡ Vind de betekenis</h3><p>Welke afbeelding past bij: <b>“Leid ons naar het rechte pad”</b>?</p><button class="btn yellow" onclick="startTimer('ft1',10)">Start!</button><div class="choices"><button class="choice symbolchoice" onclick="answer(this,false)">💗</button><button class="choice symbolchoice" onclick="answer(this,true)">🛤️✨</button><button class="choice symbolchoice" onclick="answer(this,false)">🌍</button></div><div class="feedback"></div></div>
+<div class="game g-blue"><h3>🎧 Wat vragen we Allah?</h3><button class="btn blue" onclick="playAyah('001006')">▶ Luister</button><div class="choices"><button class="choice" onclick="answer(this,true)">🧭 Om ons naar het rechte pad te leiden.</button><button class="choice" onclick="answer(this,false)">🎁 Om altijd alles te krijgen wat we willen.</button></div><div class="feedback"></div></div>
+<div class="game g-purple"><h3>💬 Leg het zelf uit</h3><p>Wat betekent <b>“U alleen vragen wij om hulp”</b> voor jou?</p><p class="tiny">Er is geen perfecte zin nodig. Vertel het in je eigen woorden.</p></div>
+<div class="game g-pink"><h3>🌎 Echt leven</h3><p>Je weet niet wat de juiste keuze is. Wat kan Al-Fatiha je helpen herinneren?</p><div class="choices"><button class="choice" onclick="answer(this,true)">🤲 Ik kan Allah om leiding vragen en proberen het goede te kiezen.</button><button class="choice" onclick="answer(this,false)">🙈 Mijn keuzes hebben niets met mijn geloof te maken.</button></div><div class="feedback"></div></div>
+
+<div class="sectionhead live"><h2>🏡 5. Neem Al-Fatiha mee · Mijn missies</h2><div class="en">Choose naturally occurring moments during the week. These are milestones, not a perfection checklist.</div></div>
+<div class="missions card" id="fatihaMissions">
+<label class="mission"><input type="checkbox" data-fm="meaning"><span>👩‍👧 <b>Ik legde aan mama uit waarom we om leiding vragen.</b></span></label>
+<label class="mission"><input type="checkbox" data-fm="salah"><span>🕌 <b>Ik luisterde extra goed naar Al-Fatiha in mijn salah.</b></span></label>
+<label class="mission"><input type="checkbox" data-fm="thanks"><span>💛 <b>Ik noemde iets waarvoor ik Allah dankbaar ben.</b></span></label>
+<label class="mission"><input type="checkbox" data-fm="help"><span>🤲 <b>Ik vroeg Allah om hulp bij iets dat moeilijk was.</b></span></label>
+<label class="mission"><input type="checkbox" data-fm="choice"><span>🧭 <b>Ik dacht aan het rechte pad toen ik een keuze moest maken.</b></span></label>
+<label class="mission"><input type="checkbox" data-fm="recite"><span>🌙 <b>Ik reciteerde Al-Fatiha rustig met mama of papa.</b></span></label>
+<div class="milestone" id="fatihaMissionCount">0 van 6 missies geprobeerd 🌰</div></div>
+<div class="card"><h3>💧 Geef je Al-Fatiha-bloem water</h3><div class="reviewdays fatihaReviews"><button data-fr="D1">D1</button><button data-fr="D3">D3</button><button data-fr="D7">D7</button><button data-fr="D14">D14</button><button data-fr="D30">D30</button></div><div class="en">Use these as spaced retrieval points, not tests.</div></div>
+</section>
+
+<section class="page" id="parents">
+<div class="hero"><div style="font-size:48px">👨‍👩‍👧🌿</div><h1>Voor ouders</h1><p>Help de Qur'an rustig deel te worden van haar gewone week.</p><div class="en">This area is for you. The goal is gentle reinforcement in real life, not turning home into another classroom.</div></div>
+
+<div class="card"><h2>Een eenvoudige regel</h2><p class="en"><b>Keep it short, warm and unpredictable.</b> One natural question or reminder is often more powerful than a scheduled quiz. Avoid correcting every mistake when the goal of the moment is meaning or connection.</p></div>
+
+<details class="card" open><summary style="font:700 21px Georgia,serif;cursor:pointer">🌷 Al-Ikhlas · Zo kan je helpen</summary>
+<div class="en" style="margin-top:12px">Pick two or three ideas each week. You do not need to do all of them.</div>
+<p>🌙 <b>Voor het slapen:</b> reciteer Al-Ikhlas samen. Laat haar soms leiden en reciteer soms gewoon samen zonder haar te testen.</p>
+<p>💭 <b>Een onverwachte vraag:</b> vraag één keer tijdens de week: “Wat leert Al-Ikhlas ons eigenlijk over Allah?” Laat haar antwoorden in haar eigen woorden.</p>
+<p>🤲 <b>Wanneer ze hulp nodig heeft:</b> als iets moeilijk is, herinner haar zacht aan <i>Aṣ-Ṣamad</i>: “Weet je nog wat we leerden? Wie kunnen we altijd om hulp vragen?”</p>
+<p>🌿 <b>Wanneer jullie iets moois zien:</b> natuur, sterren, dieren… vraag: “Wie heeft dit geschapen?” en verbind het daarna rustig met “niets in de schepping is zoals Allah.”</p>
+<p>👩‍🏫 <b>Laat haar de leraar zijn:</b> maak expres alsof jij de betekenis vergeten bent en vraag haar jou Al-Ikhlas uit te leggen.</p>
+<p>👵 <b>Deel het:</b> moedig haar aan één ding dat ze geleerd heeft aan oma, opa, papa of een ander familielid te vertellen.</p>
+<p>👂 <b>Klanken in het wild:</b> wanneer jullie Qur'an luisteren, vraag af en toe of ze ق, ح of ص herkent. Geen probleem als ze het niet meteen vindt.</p>
+<p>💧 <b>Water de bloem:</b> een week later: “Zullen we kijken of onze Al-Ikhlas-bloem nog sterk is?” Laat haar reciteren zonder het als een examen te laten voelen.</p>
+<div class="note">Avoid: “You learned this already, why don't you remember?” Prefer: “Let's help our flower grow again.”</div>
+</details>
+
+<details class="card"><summary style="font:700 21px Georgia,serif;cursor:pointer">🧭 Al-Fatiha · Zo kan je helpen</summary>
+<div class="en" style="margin-top:12px">Al-Fatiha gives you many natural daily moments because she hears and recites it in salah.</div>
+<p>🕌 <b>Tijdens salah:</b> kies af en toe één betekenis om vooraf te herinneren. Bijvoorbeeld: “Wanneer je <i>ihdinaṣ-ṣirāṭal-mustaqīm</i> zegt, denk eraan dat je Allah echt om leiding vraagt.”</p>
+<p>💛 <b>Dankbaarheid:</b> bij eten, een fijne dag of iets waar ze blij mee is: “Alhamdulillah. Waarvoor wil jij Allah vandaag bedanken?”</p>
+<p>🤲 <b>Hulp vragen:</b> wanneer ze vastloopt met school, een ruzie of iets nieuws, herinner aan <i>iyyāka nasta'īn</i> — we vragen Allah om hulp én doen zelf ons best.</p>
+<p>🧭 <b>Bij een keuze:</b> “Wat zou de goede weg hier kunnen zijn?” Gebruik kleine echte situaties: eerlijk zijn, delen, excuses aanbieden, vriendelijk reageren.</p>
+<p>🌙 <b>Rustige recitatie:</b> lees Al-Fatiha soms samen voor het slapen, zonder score of correctieronde.</p>
+<p>🎨 <b>Teken het rechte pad:</b> laat haar een pad tekenen en er langs de kant voorbeelden zetten van goede keuzes die ze wil maken.</p>
+<p>👩‍🏫 <b>Teach-back:</b> vraag haar jou uit te leggen waarom Al-Fatiha meer is dan alleen iets wat we in salah opzeggen.</p>
+<p>💬 <b>Eén ayah, één gesprek:</b> kies af en toe maar één ayah en praat daar één minuut over. Je hoeft niet steeds de hele surah te herhalen.</p>
+<div class="note">Parent reminder: connection first. A short meaningful moment is enough; stop while it still feels positive.</div>
+</details>
+
+<div class="card"><h2>🌱 Als ze iets vergeet</h2><p class="en">Give her a few seconds to retrieve it. Then offer the first word or a visual clue before giving the full answer. Retrieval strengthens memory more than immediately supplying the answer.</p></div>
+
+<details class="card"><summary style="font:700 18px Georgia,serif;cursor:pointer">⚙️ Voortgang beheren · Parent controls</summary>
+<div class="en" style="margin-top:10px">Use these only when a milestone was tapped accidentally or when you want to test the lesson again. Resetting a surah clears its garden stage, missions and review checks on this device.</div>
+<p><button class="btn alt" onclick="resetSurah('ikhlas')">↺ Reset alleen Al-Ikhlas</button></p>
+<p><button class="btn alt" onclick="resetSurah('fatiha')">↺ Reset alleen Al-Fatiha</button></p>
+<p><button class="btn pink" onclick="resetAll()">↺ Reset de hele Qur'an-tuin</button></p>
+</details>
+</section>
+<section class="page" id="method"><div class="hero"><h1>For the teacher</h1><p class="en">This page is intentionally English-only.</p></div><div class="card"><h3>Method</h3><p>Keep the Qur'an as the destination and Arabic as a supporting tool. Work in parallel: meaning and connection, listening and articulation, oral memorisation, then gradual letter recognition and reading.</p><p>Suggested session: 5 min review · 8 min visual meaning · 5–7 min sound work · 10 min memorisation · 5–8 min games · 2 min mission choice.</p><p>Correct memorisation and pronunciation separately. Do not interrupt every recitation for articulation. Model the sound, practise briefly, then revisit it naturally.</p></div></section>
+</main>
+
+<nav><button onclick="go('garden')" id="n-garden"><b>🌷</b>Tuin</button><button onclick="go('ikhlas')" id="n-ikhlas"><b>📖</b>Ikhlas</button><button onclick="go('fatiha')" id="n-fatiha"><b>🧭</b>Fatiha</button><button onclick="go('parents')" id="n-parents"><b>👨‍👩‍👧</b>Ouders</button><button onclick="go('method')" id="n-method"><b>📝</b>Methode</button></nav>
+</div>
+<audio id="audio"></audio>
+<script>
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+let stage=+(localStorage.qgStage||0), fstage=+(localStorage.qgFatihaStage||0), introStep=0, activeSurah='ikhlas';
+function go(id){$$('.page').forEach(x=>x.classList.remove('on'));$('#'+id).classList.add('on');$$('nav button').forEach(x=>x.classList.remove('on'));$('#n-'+id)?.classList.add('on');if(id==='ikhlas'||id==='fatiha')activeSurah=id;updateGarden();scrollTo(0,0)}
+function updateGarden(){
+ let s=activeSurah==='fatiha'?fstage:stage, name=activeSurah==='fatiha'?'Al-Fatiha':'Al-Ikhlas';
+ let p=$('#plant');p.className='plant stage'+s;$('#prog').style.width=(s*25)+'%';
+ $('#stageText').textContent=name+' · '+(['Zaadje','Spruit','Plant','Groeit','Bloem'][s]||'Zaadje');
+ if($('#ikhlasMini')){$('#ikhlasMini').style.width=(stage*25)+'%';$('#ikhlasMiniText').textContent=['Mijn zaadje is geplant.','Ik begrijp de boodschap.','Ik oefen de klanken.','Ik leer en onthoud.','Mijn bloem bloeit!'][stage];$('#gardenIkhlasTitle').textContent=(stage>=4?'🌷':'🌱')+' Al-Ikhlas'}
+ if($('#fatihaMini')){$('#fatihaMini').style.width=(fstage*25)+'%';$('#fatihaMiniText').textContent=['Klaar om te beginnen.','Ik begrijp de boodschap.','Ik oefen de klanken.','Ik leer en onthoud.','Mijn bloem bloeit!'][fstage];$('#gardenFatihaTitle').textContent=(fstage>=4?'🌷':'🌱')+' Al-Fatiha'}
+}
+function completeStage(n){if(stage<n){stage=n;localStorage.qgStage=stage;updateGarden()} if(n===4) alert('🌷 MashaAllah! Je bloem bloeit!'); else alert('🌱 Je plant is gegroeid!')}
+function completeSurahStage(which,n){
+ if(which==='fatiha' && fstage<n){fstage=n;localStorage.qgFatihaStage=fstage}
+ if(which==='ikhlas' && stage<n){stage=n;localStorage.qgStage=stage}
+ activeSurah=which;updateGarden();alert(n>=4?'🌷 MashaAllah! Je bloem bloeit!':'🌱 Je plant is gegroeid!')
+}
+function grow(){alert(stage<4?'Blijf leren — na elke stap mag je plant verder groeien 🌱':'🌷 Deze surah bloeit! Vergeet haar niet water te geven met herhaling.')}
+function showIntro(){introStep=0;$('#seed').style.top='85px';$('#water').style.opacity=0;$('#introplant').style.transform='scale(0)';$('#introText').textContent='Elke surah begint als een klein zaadje.';$('#introBtn').textContent='Plant mijn zaadje 🌰';go('welcome')}
+function introNext(){introStep++; if(introStep===1){$('#seed').style.top='205px';$('#introText').textContent='Begrijp wat Allah je leert.';$('#introBtn').textContent='Geef water 💧'}else if(introStep===2){$('#water').style.opacity=1;$('#introText').textContent='Luister, oefen en leer de surah.';$('#introBtn').textContent='Laat groeien 🌱'}else if(introStep===3){$('#introplant').style.transform='scale(.65)';$('#introText').textContent='Breng de surah mee in je echte leven.';$('#introBtn').textContent='Laat bloeien 🌷'}else if(introStep===4){$('#introplant').style.transform='scale(1)';$('#introText').textContent='Elke surah die je begrijpt, leert en onthoudt wordt een bloem in jouw Qur’an-tuin.';$('#introBtn').textContent='Start mijn tuin →'}else{localStorage.qgIntro='1';go('garden')}}
+function reveal(id){let x=$('#'+id);x.hidden=!x.hidden}
+function playAyah(id){let a=$('#audio');a.src='https://everyayah.com/data/Husary_Muallim_128kbps/'+id+'.mp3';a.play()}
+function answer(b,ok){let box=b.closest('.game'), f=box.querySelector('.feedback');box.querySelectorAll('.choice').forEach(x=>x.disabled=true);b.classList.add(ok?'good':'bad');f.textContent=ok?'🌟 Goed gedaan!':'🌱 Probeer nog eens — leren is groeien!';if(!ok)setTimeout(()=>{box.querySelectorAll('.choice').forEach(x=>{x.disabled=false;x.classList.remove('bad')});f.textContent=''},900)}
+let timers={}; function startTimer(id,n){clearInterval(timers[id]);let e=$('#'+id),v=n;e.textContent=v;timers[id]=setInterval(()=>{v--;e.textContent=v;if(v<=0){clearInterval(timers[id]);e.textContent='⏰'}},1000)}
+$$('.mission input').forEach(x=>{let k='qgMission_'+x.dataset.m;x.checked=localStorage[k]==='1';x.closest('.mission').classList.toggle('done',x.checked);x.onchange=()=>{localStorage[k]=x.checked?'1':'0';x.closest('.mission').classList.toggle('done',x.checked);missions()}})
+function missions(){let n=$$('.mission input:checked').length;$('#missionCount').textContent=n+' van 6 missies geprobeerd '+(n>=5?'🌷':n>=3?'🌿':n>=1?'🌱':'🌰');if(n>=4 && stage<4){stage=4;localStorage.qgStage=4;updateGarden()}}
+$$('.reviewdays button').forEach(b=>{let k='qgReview_'+b.dataset.r;b.classList.toggle('done',localStorage[k]==='1');b.onclick=()=>{let on=!b.classList.contains('done');b.classList.toggle('done',on);localStorage[k]=on?'1':'0'}})
+$$('[data-fm]').forEach(x=>{let k='qgFatihaMission_'+x.dataset.fm;x.checked=localStorage[k]==='1';x.closest('.mission').classList.toggle('done',x.checked);x.onchange=()=>{localStorage[k]=x.checked?'1':'0';x.closest('.mission').classList.toggle('done',x.checked);fatihaMissions()}})
+function fatihaMissions(){let n=$$('[data-fm]:checked').length;if($('#fatihaMissionCount'))$('#fatihaMissionCount').textContent=n+' van 6 missies geprobeerd '+(n>=5?'🌷':n>=3?'🌿':n>=1?'🌱':'🌰');if(n>=4&&fstage<4){fstage=4;localStorage.qgFatihaStage=4;updateGarden()}}
+$$('[data-fr]').forEach(b=>{let k='qgFatihaReview_'+b.dataset.fr;b.classList.toggle('done',localStorage[k]==='1');b.onclick=()=>{let on=!b.classList.contains('done');b.classList.toggle('done',on);localStorage[k]=on?'1':'0'}})
+
+
+function bridgeState(){
+ let open=localStorage.qgIkhlasReviewed==='1';
+ if($('#fatihaGate'))$('#fatihaGate').hidden=open;
+ if($('#fatihaOpen'))$('#fatihaOpen').hidden=!open;
+}
+function confirmBridge(){
+ let checks=[$('#bridgeMeaning'),$('#bridgeRecite'),$('#bridgeLife')];
+ if(!checks.every(x=>x&&x.checked)){alert('🌱 Doe eerst samen de drie korte tuin-checks. Daarna mag het volgende zaadje geplant worden.');return}
+ localStorage.qgIkhlasReviewed='1';
+ if(stage<4){stage=4;localStorage.qgStage=4}
+ activeSurah='fatiha';updateGarden();bridgeState();
+ alert('🌷 MashaAllah! Al-Ikhlas bloeit. Tijd om een nieuw zaadje te planten.');
+ go('garden')
+}
+function resetSurah(which){
+ let label=which==='ikhlas'?'Al-Ikhlas':'Al-Fatiha';
+ if(!confirm('Wil je de voortgang van '+label+' echt resetten?'))return;
+ if(which==='ikhlas'){
+   Object.keys(localStorage).filter(k=>k==='qgStage'||k.startsWith('qgMission_')||k.startsWith('qgReview_')||k==='qgIkhlasReviewed').forEach(k=>localStorage.removeItem(k));
+   stage=0;
+ } else {
+   Object.keys(localStorage).filter(k=>k==='qgFatihaStage'||k.startsWith('qgFatihaMission_')||k.startsWith('qgFatihaReview_')).forEach(k=>localStorage.removeItem(k));
+   fstage=0;
+ }
+ location.reload()
+}
+function resetAll(){
+ if(!confirm("Wil je echt de hele Qur'an-tuin resetten? Alle lokale voortgang wordt gewist.")) return;
+ Object.keys(localStorage).filter(k=>k.startsWith('qg')).forEach(k=>localStorage.removeItem(k));
+ location.reload();
+}
+bridgeState();
+updateGarden();missions();fatihaMissions(); if(localStorage.qgIntro==='1')go('garden');
+</script></body></html>
