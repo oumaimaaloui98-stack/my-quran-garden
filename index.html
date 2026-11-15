@@ -536,4 +536,26 @@ const n=Object.keys(answers).length;document.getElementById('zk-result').textCon
 window.zkReset=function(){answers={};render()};render();
 })();
 </script>
+
+<script>
+/* Independent navigation to keep the site usable if lesson setup fails. */
+(function(){
+  function navigate(id){
+    var target=document.getElementById(id);
+    if(!target || !target.classList.contains('page'))return;
+    document.querySelectorAll('.page').forEach(function(p){p.classList.toggle('on',p===target)});
+    var group=['ikhlas','fatiha','kawthar','nas','method'].includes(id)?'library':(['shahada','salah','zakat','pillars-intro'].includes(id)?'pillars':id);
+    document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.id==='n-'+group)});
+    try{if(typeof updateGarden==='function')updateGarden()}catch(e){console.warn(e)}
+    window.scrollTo(0,0);
+  }
+  window.go=navigate;
+  document.querySelectorAll('[onclick]').forEach(function(b){
+    var action=b.getAttribute('onclick')||'';
+    var match=action.match(/go\(['"]([^'"]+)['"]\)/);
+    if(!match)return;
+    b.addEventListener('click',function(ev){ev.preventDefault();ev.stopImmediatePropagation();navigate(match[1])},true);
+  });
+})();
+</script>
 </body></html>
